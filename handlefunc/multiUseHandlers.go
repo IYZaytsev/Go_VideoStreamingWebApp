@@ -10,7 +10,7 @@ type Page struct {
 	Name string
 }
 
-var tmpls = template.Must(template.ParseFiles("page.html"))
+var tmpls = template.Must(template.ParseFiles("tmpl/index.html", "tmpl/upload.html"))
 
 //TemplateInit used every where to initialize HTML templates
 func TemplateInit(w http.ResponseWriter, templateFile string, templateData Page) {
@@ -22,6 +22,12 @@ func TemplateInit(w http.ResponseWriter, templateFile string, templateData Page)
 
 //Index is the main page of the web app
 func Index(w http.ResponseWriter, r *http.Request) {
-	page := Page{Name: "assssssssssss"}
-	TemplateInit(w, "page.html", page)
+	page := Page{Name: "Index Page"}
+	TemplateInit(w, "index.html", page)
+}
+
+//Upload files handler
+func Upload(w http.ResponseWriter, r *http.Request) {
+	page := Page{Name: "Upload Page"}
+	TemplateInit(w, "upload.html", page)
 }

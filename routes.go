@@ -24,4 +24,10 @@ var routes = Routes{
 		"/",
 		handlefunc.Index,
 	},
+	Route{
+		"index",
+		"GET",
+		"/upload",
+		handlefunc.Upload,
+	},
 }
