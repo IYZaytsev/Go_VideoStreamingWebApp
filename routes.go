@@ -30,4 +30,10 @@ var routes = Routes{
 		"/upload",
 		handlefunc.Upload,
 	},
+	Route{
+		"Watch",
+		"GET",
+		"/watch/{rest:.}",
+		handlefunc.Watch,
+	},
 }

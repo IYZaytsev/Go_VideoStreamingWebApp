@@ -2,6 +2,7 @@ package handlefunc
 
 import (
 	"encoding/json"
+	"fmt"
 	"io/ioutil"
 	"log"
 	"net/http"
@@ -16,7 +17,7 @@ type Page struct {
 }
 
 var myClient = http.Client{Timeout: 10 * time.Second}
-var tmpls = template.Must(template.ParseFiles("tmpl/index.html", "tmpl/upload.html"))
+var tmpls = template.Must(template.ParseFiles("tmpl/index.html", "tmpl/upload.html", "tmpl/watch.html"))
 
 //TemplateInit used every where to initialize HTML templates
 func TemplateInit(w http.ResponseWriter, templateFile string, templateData Page) {
@@ -37,6 +38,14 @@ func Index(w http.ResponseWriter, r *http.Request) {
 func Upload(w http.ResponseWriter, r *http.Request) {
 	page := Page{Name: "Upload Page"}
 	TemplateInit(w, "upload.html", page)
+}
+
+//Watch handles video playing
+func Watch(w http.ResponseWriter, r *http.Request) {
+	fmt.Println("in Watch")
+	indexOfVideo := r.URL.Path[len("/watch/"):]
+	page := Page{Name: indexOfVideo}
+	TemplateInit(w, "watch.html", page)
 }
 
 //GetVideoList returns a list of videos uploaded on the server

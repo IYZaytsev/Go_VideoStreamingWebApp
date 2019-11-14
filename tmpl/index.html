@@ -4,10 +4,12 @@
     <title>HTML Video embed</title>
   </head>
   <body>
+    <a href="http://localhost:8000/upload"> Upload</a>
+    <br />
     <h1>Video List</h1>
     <br />
-    {{range $i := .VideoNames}}
-    video: {{$i}}
+    {{range $i, $e := .VideoNames}} video:
+    <a href="http://localhost:8000/watch/{{$i}}"> {{$e}}</a> <br />
     {{end}}
   </body>
 </html>
