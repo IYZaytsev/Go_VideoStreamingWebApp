@@ -8,6 +8,7 @@ import (
 
 //NewRouter uses the routes slice declared in routes.go and creates a router  instance
 func NewRouter() *mux.Router {
+
 	router := mux.NewRouter()
 	for _, route := range routes {
 		var handler http.Handler

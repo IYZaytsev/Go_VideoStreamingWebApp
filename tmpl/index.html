@@ -4,12 +4,10 @@
     <title>HTML Video embed</title>
   </head>
   <body>
-    {{.Name}}
+    <h1>Video List</h1>
     <br />
-    <video width="700" height="400" controls>
-      <source src="http://localhost:8080/" type="video/mp4" />
-
-      Your browser does not support the video tag.
-    </video>
+    {{range $i := .VideoNames}}
+    video: {{$i}}
+    {{end}}
   </body>
 </html>

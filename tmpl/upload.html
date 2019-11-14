@@ -1,20 +1,74 @@
 <!DOCTYPE html>
-<html>
+<html lang="en" dir="ltr">
   <head>
-    <title>HTML Video embed</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>Upload</title>
+    <link rel="stylesheet" type="text/css" href="/static/main.css" />
   </head>
   <body>
     {{.Name}}
     <br />
-    <label form="video">Upload Video:</label>
-    <form
-      action="http://localhost:8080/upload"
-      method="POST"
-      enctype="multipart/form-data"
-    >
-      <input type="file" name="file" id="file" />
+
+    <script>
+      function move(percent) {
+        var elem = document.getElementById("myBar");
+        var width = percent;
+        elem.style.width = width + "%";
+        elem.innerHTML = width + "%";
+      }
+      function doSubmit() {
+        // Form Data
+        document.getElementById("myBtn").disabled = true;
+
+        var formData = new FormData();
+        var loadingbar = document.getElementById("container");
+        var spinner = document.getElementById("loader");
+        var loadingtext = document.getElementById("loadingMessage");
+        loadingtext.style.visibility = 'hidden';
+
+        var fileSelect = document.getElementById("videoUpload");
+        if (fileSelect.files && fileSelect.files.length == 1) {
+          var file = fileSelect.files[0];
+          formData.set("file", file, file.name);
+        }
+
+        loadingbar.style.visibility = "visible";
+        // Http Request
+        var xhr = new XMLHttpRequest();
+
+        xhr.onreadystatechange = function() {
+          if (xhr.readyState === 4 && xhr.status === 200) {
+            console.log("done");
+            spinner.style.visibility = 'hidden';
+            loadingtext.style.visibility = 'visible';
+            document.getElementById("myBtn").disabled = false;
+          }
+        };
+        xhr.upload.onprogress = function(e) {
+          move((e.loaded / e.total) * 100);
+          if ((e.loaded / e.total) * 100 == 100) {
+            loadingbar.style.visibility = "hidden";
+            spinner.style.visibility = "visible";
+          }
+        };
+        xhr.open("POST", "http://localhost:8080/upload");
+
+        xhr.send(formData);
+      }
+    </script>
+    <form>
+      <input type="file" name="file" accept="video/*"id="videoUpload" />
       <br />
-      <input type="submit" name="submit" value="Submit" />
+      <button id="myBtn" type="button" onclick="doSubmit()">Submit</button>
     </form>
+    <div id="container">
+      <div id="myProgress">
+        <div id="myBar"></div>
+      </div>
+      <div id="loader"></div>
+      <div id="loadingMessage"><h1>
+        File Uploaded.
+      </h1></div>
+    </div>
   </body>
 </html>
