@@ -3,93 +3,14 @@
   <head>
 
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <title>HTML Video embed</title>
+    <link rel="stylesheet" type="text/css" href="/static/main.css" />
+    <title>Home</title>
 
-  <style>
-
-
-    .navbar {
-      overflow: hidden;
-      background-color: rgb(39,37,31);
-      font-family: Arial, Helvetica, sans-serif;
-    }
-
-    .navbar a {
-      float: left;
-      font-size: 16px;
-      color: white;
-      text-align: center;
-      padding: 14px 16px;
-      text-decoration: none;
-    }
-
-    .dropdown {
-      float: left;
-      overflow: hidden;
-    }
-
-    .dropdown .dropbtn {
-      cursor: pointer;
-      font-size: 16px;
-      border: none;
-      outline: none;
-      color: white;
-      padding: 14px 16px;
-      background-color: inherit;
-      font-family: inherit;
-      margin: 0;
-    }
-
-    .navbar a:hover, .dropdown:hover .dropbtn, .dropbtn:focus {
-      background-color: rgb(185,151,91);
-    }
-
-    .dropdown-content {
-      display: none;
-      position: absolute;
-      background-color: #f9f9f9;
-      min-width: 160px;
-      box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-      z-index: 1;
-    }
-
-    .dropdown-content a {
-      float: none;
-      color: black;
-      padding: 12px 16px;
-      text-decoration: none;
-      display: block;
-      text-align: left;
-    }
-
-    .dropdown-content a:hover {
-      background-color: #ddd;
-    }
-
-    .show {
-      display: block;
-    }
-    body {
-
-      /* Full height */
-      height: 100%;
-
-      /* Background image */
-      background-image:linear-gradient(rgba(4,106,56,0.9),rgba(4,106,56,0.9)), url(https://i.imgur.com/ywIB4SW.jpg);
-
-      /* Center and scale the image */
-      background-repeat: no-repeat;
-      background-size: cover;
-      background-attachment: fixed;
-
-    }
-  </style>
   </head>
   <body style="background-color:#046A38;">
-
+  <img src="https://i.imgur.com/rsoPQv9.gif" width="200" height="150"/>
   <div class="navbar">
-    <a href="home">Home</a>
+    <a href="/">Home</a>
     <a href="information">Information</a>
     <div class="dropdown">
       <button class="dropbtn" onclick="myFunction()">Menu
@@ -97,7 +18,7 @@
       </button>
       <div class="dropdown-content" id="myDropdown">
         <a href="signin">Sign in</a>
-        <a href="upload">Upload</a>
+        <a href="/upload">Upload</a>
       </div>
     </div>
   </div>
@@ -106,13 +27,35 @@
     <a href="http://localhost:8000/upload"> Upload</a>
     -->
     <br />
-    <img src="https://i.imgur.com/rsoPQv9.gif"/>
     <h1 style="color:#B9975B;"> Video List</h1>
     <br />
-    {{range $i, $e := .VideoNames}} video:
-    <a href="http://localhost:8000/watch/{{$i}}"> {{$e}}</a> <br />
-    {{end}}
+    <div id = "videoList">
 
+    </div>
+
+    <script>
+        setInterval(function(){
+        var videoList = document.getElementById("videoList")
+        var xhr = new XMLHttpRequest();
+        xhr.responseType = 'json';
+        xhr.onreadystatechange = function() {
+          if (xhr.readyState === 4) {
+            console.log(xhr.response.VideoNames);
+            var htmlString = "<ul>";
+            xhr.response.VideoNames.forEach(function (value, i) {
+              var link = "<a href= http://localhost:8000/watch/" + i + ">" + value + "</>";
+              htmlString += ("<li>" + link + "</li>");
+          });
+   
+            htmlString += "</ul>";
+            console.log(htmlString);
+            videoList.innerHTML = htmlString;
+          }
+        }
+        xhr.open("GET", "http://localhost:8080/")
+        xhr.send('');
+        },500);
+      </script>
     <script>
       /* When the user clicks on the button,
       toggle between hiding and showing the dropdown content */
