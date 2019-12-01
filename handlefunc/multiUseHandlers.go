@@ -6,6 +6,8 @@ import (
 	"io/ioutil"
 	"log"
 	"net/http"
+	"strconv"
+	"strings"
 	"text/template"
 	"time"
 )
@@ -14,10 +16,11 @@ import (
 type Page struct {
 	Name       string
 	VideoNames []string
+	Index      int
 }
 
 var myClient = http.Client{Timeout: 10 * time.Second}
-var tmpls = template.Must(template.ParseFiles("tmpl/index.html", "tmpl/upload.html", "tmpl/watch.html"))
+var tmpls = template.Must(template.ParseFiles("tmpl/index.html", "tmpl/upload.html", "tmpl/watch.html", "tmpl/information.html"))
 
 //TemplateInit used every where to initialize HTML templates
 func TemplateInit(w http.ResponseWriter, templateFile string, templateData Page) {
@@ -44,8 +47,17 @@ func Upload(w http.ResponseWriter, r *http.Request) {
 func Watch(w http.ResponseWriter, r *http.Request) {
 	fmt.Println("in Watch")
 	indexOfVideo := r.URL.Path[len("/watch/"):]
-	page := Page{Name: indexOfVideo}
+	indexOfVideoInt, _ := strconv.Atoi(indexOfVideo)
+	listOfVideos := GetVideoList()
+
+	page := Page{Name: strings.Replace(listOfVideos.VideoNames[indexOfVideoInt], ".mp4", "", -1), Index: indexOfVideoInt}
 	TemplateInit(w, "watch.html", page)
+}
+
+//Info displays the Information Page
+func Info(w http.ResponseWriter, r *http.Request) {
+	page := Page{Name: "Information Page"}
+	TemplateInit(w, "information.html", page)
 }
 
 //GetVideoList returns a list of videos uploaded on the server

@@ -4,7 +4,7 @@
 
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" href="/static/main.css" />
-    <title>Home</title>
+    <title>Information</title>
 
   </head>
   <body style="background-color:#046A38;" onpageshow = "loadVideos();">
@@ -26,37 +26,10 @@
     <a href="http://localhost:8000/upload"> Upload</a>
     -->
     <br />
-    <h1 style="color:#B9975B;"> Video List</h1>
-    <br />
-    <div id = "videoList">
+
 
     </div>
 
-    <script>
-        function loadVideos() {
-        var videoList = document.getElementById("videoList")
-        var xhr = new XMLHttpRequest();
-        var xhrThumbNail = new XMLHttpRequest();
-        xhr.responseType = 'json';
-        xhr.onreadystatechange = function() {
-          if (xhr.readyState === 4) {
-            console.log(xhr.response.VideoNames);
-            var htmlString = "";
-            xhr.response.VideoNames.forEach(function (value, i) {
-              xhrThumbNail.open("GET", "http://localhost:8080/image/"+i);
-              xhrThumbNail.send('');
-              var link = "<a href= http://localhost:8000/watch/" + i + ">" + "<img src=http://localhost:8080/image/" + i + " height='200px' width='300px' />" + "</>";
-                link += "<p>" + value.replace(".mp4", "") + "</p>";
-              htmlString += ("<div>" + link + "</div>");
-          });
-
-            videoList.innerHTML = htmlString;
-          }
-        }
-        xhr.open("GET", "http://localhost:8080/")
-        xhr.send('');
-        };
-      </script>
     <script>
       /* When the user clicks on the button,
       toggle between hiding and showing the dropdown content */

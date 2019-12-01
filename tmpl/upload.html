@@ -9,20 +9,17 @@
           <img src="https://i.imgur.com/rsoPQv9.gif" width="200" height="150"/>
           <div class="navbar">
             <a href="/">Home</a>
-            <a href="information">Information</a>
+            <a href="/information">Information</a>
             <div class="dropdown">
               <button class="dropbtn" onclick="myFunction()">Menu
                 <i class="fa fa-caret-down"></i>
               </button>
               <div class="dropdown-content" id="myDropdown">
-                <a href="signin">Sign in</a>
                 <a href="/upload">Upload</a>
               </div>
             </div>
           </div>
-    {{.Name}}
     <br />
-
     <script>
       function move(percent) {
         var elem = document.getElementById("myBar");
@@ -70,6 +67,8 @@
         xhr.send(formData);
       }
     </script>
+    <div id= "UploadContainer">
+      <p>Upload A file</p>
     <form>
       <input type="file" name="file" accept="video/*"id="videoUpload" />
       <br />
@@ -81,8 +80,9 @@
       </div>
       <div id="loader"></div>
       <div id="loadingMessage"><h1>
-        File Uploaded.
+        <p>Uploaded</p>
       </h1></div>
+    </div>
     </div>
     <script>
         /* When the user clicks on the button,

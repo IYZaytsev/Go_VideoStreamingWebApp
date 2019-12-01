@@ -106,3 +106,40 @@ body {
   background-attachment: fixed;
 
 }
+
+#videoList {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+}
+
+#videoList div{
+  text-align: center;
+  width: 300px;
+  word-wrap: break-word;
+}
+
+#videoList div p{
+  color:#B9975B;
+  font-size: 20px;
+
+}
+ p{
+  color:#B9975B;
+  font-size: 20px;
+
+}
+
+a {
+  text-decoration: none;
+}
+
+#UploadContainer{
+  margin: auto;
+  width: 50%;
+  border: 3px solid #B9975B;
+  padding: 10px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+}

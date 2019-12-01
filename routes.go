@@ -36,4 +36,10 @@ var routes = Routes{
 		"/watch/{rest:.}",
 		handlefunc.Watch,
 	},
+	Route{
+		"Watch",
+		"GET",
+		"/information",
+		handlefunc.Info,
+	},
 }
