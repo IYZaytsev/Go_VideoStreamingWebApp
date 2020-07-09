@@ -1,5 +1,6 @@
 # Go_VideoStreamingWebApp
-A rudimentary clone of youtube built as microservices 
+A rudimentary clone of youtube built as microservices built 
+for a class project to learn the Go programming language 
 <p align="center">
   <img src="Screenshot from 2019-12-01 20-21-09.png">
 </p>
